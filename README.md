@@ -56,18 +56,33 @@ The following settings can be adjusted in the `config.yaml` to configure the mod
 
 ## train the model 
 
+
+### From scrach:
 ```
-python3 train.py  
+python3 train.py --checkpoint_dir ./checkpoints
 ```
 
+### Resume the training:
+```
+python3 train.py ./checkpoints/best_model.pth --checkpoint_dir ./checkpoints
+
+```
 
 ## Pretrained Checkpoints
 
-Please find the checkpoint of **MAFTC-Net** for the **Synapse dataset** [here](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>).
+Please find the checkpoint of **MAFTC-Net** for the **Synapse, ACDC and organoid datasets** :
 
+| Dataset   | Model      | Checkpoint | Notes |
+|-----------|-----------|-------------|-------|
+| ACDC      | MAFTC-Net | [Download](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>)     | Cardiac MRI segmentation |
+| Synapse   | MAFTC-Net | [Download](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>)  | Abdominal CT segmentation |
+| Organoid  | MAFTC-Net | [Download](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>) | 3D microscopy segmentation |
 
 ## Testing 
-python3 test.py 
+python3 test.py ./checkpoints/best_model.pth
+
+### Visualization of output of model:
+![](pics/test_sample.png)
 
 ## Citation
 If any part of this code is used, please give appropriate citations to our paper. <br />

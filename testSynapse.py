@@ -1,27 +1,36 @@
 import torch
 import os
-import json
 import matplotlib.pyplot as plt
-from tqdm import tqdm
-from monai.losses import DiceCELoss
-from utils import train
-from model.MAFTCNet import MAFTCNet 
-from loader.loader import data_loaders
-from thop import profile
-import time 
 import yaml
+import argparse
 from monai.inferers import sliding_window_inference
+from model.MAFTCNet import MAFTCNet
+from loader.loader import data_loaders
 
 def main():
-    ##### Load hyperparameters from YAML file
-    with open('configs.yaml', 'r') as config_file:
-        config = yaml.safe_load(config_file)
-        
-    ##### dataset
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    _,val_ds, _,_ = data_loaders(config, device=device)
+    # -------------------
+    # CLI arguments
+    # -------------------
+    parser = argparse.ArgumentParser(description="Test MAFTCNet")
+    parser.add_argument(
+        "checkpoint",
+        type=str,
+        help="Path to the trained model checkpoint (.pth)"
+    )
+    args = parser.parse_args()
 
-    ##### define the model
+    # -------------------
+    # Load config
+    # -------------------
+    with open("configs.yaml", "r") as config_file:
+        config = yaml.safe_load(config_file)
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    _, val_ds, _, _ = data_loaders(config, device=device)
+
+    # -------------------
+    # Define model
+    # -------------------
     model = MAFTCNet(
         img_size=(config["input_size"], config["input_size"], config["input_size"]),
         in_channels=config["input_channels"],
@@ -30,8 +39,18 @@ def main():
         use_checkpoint=config["use_checkpoint"],
     ).to(device)
 
-    root_dir = config["saved_model_dir"]
-    
+    # -------------------
+    # Load checkpoint
+    # -------------------
+    print(f"[ckpt] Loading model from: {args.checkpoint}")
+    model.load_state_dict(torch.load(args.checkpoint, map_location=device))
+    print("[ckpt] Model loaded successfully.")
+
+    model.eval()
+
+    # -------------------
+    # Example visualization
+    # -------------------
     slice_map = {
         "img0029.nii.gz": 170,
         "img0030.nii.gz": 230,
@@ -39,26 +58,30 @@ def main():
         "img0032.nii.gz": 204,
         "img0033.nii.gz": 204,
         "img0034.nii.gz": 180,
-    }     
+    }
     case_num = 2
-    print("Stat loading the model!")
-    model.load_state_dict(torch.load(os.path.join(root_dir, "best_model.pth")))
-    print("Model loaded! ")
-    model.eval()
+
     with torch.no_grad():
         img_name = os.path.split(val_ds[case_num]["image"].meta["filename_or_obj"])[1]
         img = val_ds[case_num]["image"]
         label = val_ds[case_num]["label"]
-        val_inputs = torch.unsqueeze(img, 1).cuda()
-        val_labels = torch.unsqueeze(label, 1).cuda()
-        val_outputs = sliding_window_inference(val_inputs, (config["input_size"], config["input_size"], config["input_size"]), 1, model, overlap=0.8)
+
+        val_inputs = torch.unsqueeze(img, 1).to(device)
+        val_labels = torch.unsqueeze(label, 1).to(device)
+
+        val_outputs = sliding_window_inference(
+            val_inputs,
+            (config["input_size"], config["input_size"], config["input_size"]),
+            1,
+            model,
+            overlap=0.8,
+        )
 
         # --- Plot three subplots ---
         plt.figure("check", (18, 6))
 
         plt.subplot(1, 3, 1)
         plt.title("image")
-        print("img_name-------------", img_name)
         plt.imshow(val_inputs.cpu().numpy()[0, 0, :, :, slice_map[img_name]], cmap="gray")
 
         plt.subplot(1, 3, 2)
@@ -70,11 +93,12 @@ def main():
         plt.imshow(torch.argmax(val_outputs, dim=1).detach().cpu()[0, :, :, slice_map[img_name]])
 
         # --- Save figure instead of showing ---
+        os.makedirs(config["save_dir"], exist_ok=True)
         save_path = os.path.join(config["save_dir"], f"{img_name}_check.png")
         plt.savefig(save_path, bbox_inches="tight", dpi=150)
         plt.close()
 
-        print(f"Saved visualization to: {save_path}")
+        print(f"[viz] Saved visualization to: {save_path}")
 
 
 if __name__ == "__main__":
