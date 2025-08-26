@@ -1,5 +1,5 @@
-data/
+dataSynapse/
+dataACDC/
 saved_models/
 MAFTCNet_env/
-pics/
 checkpoints/

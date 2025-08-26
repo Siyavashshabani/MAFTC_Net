@@ -5,7 +5,7 @@ import yaml
 import argparse
 from monai.inferers import sliding_window_inference
 from model.MAFTCNet import MAFTCNet
-from loader.loaderSynapse import data_loaders
+from loader.loaderACDC import data_loaders
 
 def main():
     # -------------------
@@ -52,12 +52,9 @@ def main():
     # Example visualization
     # -------------------
     slice_map = {
-        "img0029.nii.gz": 170,
-        "img0030.nii.gz": 230,
-        "img0031.nii.gz": 70,
-        "img0032.nii.gz": 204,
-        "img0033.nii.gz": 204,
-        "img0034.nii.gz": 180,
+        "patient132_frame10.nii": 180,
+        "patient147_frame09.nii": 180,
+        "patient167_frame08.nii": 180,
     }
     case_num = 2
 

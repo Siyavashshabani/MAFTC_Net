@@ -54,19 +54,47 @@ The following settings can be adjusted in the `config.yaml` to configure the mod
 - **`eval_num`**: Set the frequency of evaluations (every `eval_num` iterations) during training.
 
 
-## train the model 
+# train the model 
 
-
+## Synapse 
 ### From scrach:
 ```
-python3 train.py --checkpoint_dir ./checkpoints
+python3 trainSynapse.py --checkpoint_dir ./checkpoints/synapse
 ```
 
 ### Resume the training:
 ```
-python3 train.py ./checkpoints/best_model.pth --checkpoint_dir ./checkpoints
-
+python3 trainSynapse.py ./checkpoints/synapse/best_model.pth --checkpoint_dir ./checkpoints/synapse
 ```
+## Testing 
+```
+python3 testSynapse.py ./checkpoints/synapse/best_model.pth
+```
+
+### Visualization for the output of model for ACDC:
+![](pics/test_sample_Synapse.png)
+
+
+## ACDC
+### From scrach:
+```
+python3 trainACDC.py --checkpoint_dir ./checkpoints/acdc
+```
+
+### Resume the training:
+```
+python3 trainACDC.py ./checkpoints/acdc/best_model.pth --checkpoint_dir ./checkpoints/acdc
+```
+
+## Testing 
+```
+python3 testACDC.py ./checkpoints/acdc/best_model.pth
+```
+
+### Visualization for the output of model for ACDC:
+![](pics/test_sample_ACDC.png)
+
+
 
 ## Pretrained Checkpoints
 
@@ -78,11 +106,6 @@ Please find the checkpoint of **MAFTC-Net** for the **Synapse, ACDC and organoid
 | Synapse   | MAFTC-Net | [Download](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>)  | Abdominal CT segmentation |
 | Organoid  | MAFTC-Net | [Download](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>) | 3D microscopy segmentation |
 
-## Testing 
-python3 test.py ./checkpoints/best_model.pth
-
-### Visualization of output of model:
-![](pics/test_sample.png)
 
 ## Citation
 If any part of this code is used, please give appropriate citations to our paper. <br />

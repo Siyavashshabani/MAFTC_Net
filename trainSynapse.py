@@ -6,7 +6,7 @@ from tqdm import tqdm
 from monai.losses import DiceCELoss
 from utils import train
 from model.MAFTCNet import MAFTCNet
-from loader.loader import data_loaders
+from loader.loaderSynapse import data_loaders
 from thop import profile
 import time
 import yaml
@@ -68,7 +68,7 @@ def main():
     # -----------------------
     # Load config
     # -----------------------
-    with open("configs.yaml", "r") as config_file:
+    with open("configsSynapse.yaml", "r") as config_file:
         config = yaml.safe_load(config_file)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
