@@ -38,7 +38,7 @@ This repository is built upon the foundational work provided in [Synapse](https:
 Before training the configs.json file should be filled:
 
 ### Hyperparameters Configuration
-The following settings can be adjusted in the `config.py` to configure the model training and data management:
+The following settings can be adjusted in the `config.yaml` to configure the model training and data management:
 
 - **`data_dir`**: Set the directory path for dataset storage.
 - **`saved_model_dir`**: Set the directory path where trained models and checkpoints will be saved.
@@ -57,11 +57,17 @@ The following settings can be adjusted in the `config.py` to configure the model
 ## train the model 
 
 ```
-python3.10 main.py  
+python3 train.py  
 ```
 
+
+## Pretrained Checkpoints
+
+Please find the checkpoint of **MAFTC-Net** for the **Synapse dataset** [here](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>).
+
+
 ## Testing 
-Comming soon 
+python3 test.py 
 
 ## Citation
 If any part of this code is used, please give appropriate citations to our paper. <br />
