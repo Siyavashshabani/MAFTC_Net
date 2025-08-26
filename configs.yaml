@@ -1,0 +1,47 @@
+## data path 
+data_dir: "./data/"
+saved_model_dir: "./saved_models/"
+
+## dataset parameters
+num_classes: 9
+input_size: 96
+input_channels: 1
+
+## model parameters 
+feature_size: 48
+
+## training parameters
+learning_rate: 0.0001
+weight_decay: 0.00001
+max_iterations: 30000
+eval_num: 10
+use_checkpoint: true
+
+## dataloader parameters
+num_samples: 1
+train_cache_num: 18
+cache_rate: 1.0
+train_num_workers: 8
+val_num_workers: 4
+batch_size: 1
+val_cache_num: 12
+
+################################ Augmentation
+## ScaleIntensityRanged
+a_min: -175     # lower bound of input intensity range (before scaling)
+a_max: 250        # upper bound of input intensity range (before scaling)
+b_min: 0.0        # lower bound of output range (after scaling)
+b_max: 1.0        # upper bound of output range (after scaling)
+clip: True        # clip values outside [a_min, a_max] before scaling
+
+## Spacingd
+pixdim: [1.5, 1.5, 2.0]
+
+## rands
+prob_RandFlipd: 0.10
+prob_RandRote: 0.10
+prob_ShiftInten: 0.50
+offset_ShiftInten: 0.50
+
+## test 
+save_dir: pics/
