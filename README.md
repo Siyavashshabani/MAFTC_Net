@@ -102,8 +102,8 @@ Please find the checkpoint of **MAFTC-Net** for the **Synapse, ACDC and organoid
 
 | Dataset   | Model      | Checkpoint | Notes |
 |-----------|-----------|-------------|-------|
-| ACDC      | MAFTC-Net | [Download](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>)     | Cardiac MRI segmentation |
-| Synapse   | MAFTC-Net | [Download](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>)  | Abdominal CT segmentation |
+| ACDC      | MAFTC-Net | [Download](<https://drive.google.com/file/d/1IfzwqyA_O2JXC0VtmkVjB8WYh_2nrdJa/view?usp=sharing>)     | Cardiac MRI segmentation |
+| Synapse   | MAFTC-Net | [Download](<https://drive.google.com/file/d/1ayaB8n1w1Z8B7FGABZ3nKnOOvBUV8bVf/view?usp=drive_link>)  | Abdominal CT segmentation |
 | Organoid  | MAFTC-Net | [Download](<https://drive.google.com/file/d/1g0xx3XjIDRHJ57336Q6Mi46ctpr-fLZ9/view?usp=sharing>) | 3D microscopy segmentation |
 
 
