@@ -64,11 +64,11 @@ python3 trainSynapse.py --checkpoint_dir ./checkpoints/synapse
 
 ### Resume the training:
 ```
-python3 trainSynapse.py ./checkpoints/synapse/best_model.pth --checkpoint_dir ./checkpoints/synapse
+python3 trainSynapse.py ./checkpoints/synapse/MAFTCNet_synapse.pth --checkpoint_dir ./checkpoints/synapse
 ```
 ## Testing 
 ```
-python3 testSynapse.py ./checkpoints/synapse/best_model.pth
+python3 testSynapse.py ./checkpoints/synapse/MAFTCNet_synapse.pth
 ```
 
 ### Visualization for the output of model for ACDC:
@@ -83,12 +83,12 @@ python3 trainACDC.py --checkpoint_dir ./checkpoints/acdc
 
 ### Resume the training:
 ```
-python3 trainACDC.py ./checkpoints/acdc/best_model.pth --checkpoint_dir ./checkpoints/acdc
+python3 trainACDC.py ./checkpoints/acdc/MAFTCNet_ACDC.pth --checkpoint_dir ./checkpoints/acdc
 ```
 
 ## Testing 
 ```
-python3 testACDC.py ./checkpoints/acdc/best_model.pth
+python3 testACDC.py ./checkpoints/acdc/MAFTCNet_ACDC.pth
 ```
 
 ### Visualization for the output of model for ACDC:
